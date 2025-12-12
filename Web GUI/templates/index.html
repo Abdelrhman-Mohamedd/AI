@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulneraPred - AI-Powered Vulnerability Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>VulneraPred</h1>
+                </div>
+                <p class="subtitle">AI-Powered Vulnerability Detection System</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <div class="container">
+            <div class="grid">
+                <!-- Left Panel - Code Input -->
+                <div class="panel code-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-code"></i> Code Input</h2>
+                        <div class="panel-actions">
+                            <button id="uploadBtn" class="btn btn-secondary" title="Upload Python file">
+                                <i class="fas fa-upload"></i> Upload
+                            </button>
+                            <button id="loadExampleBtn" class="btn btn-secondary" title="Load example vulnerable code">
+                                <i class="fas fa-lightbulb"></i> Example
+                            </button>
+                            <button id="clearBtn" class="btn btn-secondary" title="Clear code">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" accept=".py,.txt" style="display: none;">
+                    <div class="panel-body">
+                        <div class="file-info" id="fileInfo">
+                            <i class="fas fa-file-code"></i> <span id="fileInfoText">No file loaded</span>
+                        </div>
+                        <div class="code-editor-wrapper">
+                            <textarea id="codeEditor" class="code-editor" placeholder="Paste your Python code here, upload a file, or drag & drop...
+
+Example:
+def login(username, password):
+    query = f&quot;SELECT * FROM users WHERE username='{username}' AND password='{password}'&quot;
+    cursor.execute(query)
+    return cursor.fetchone()"></textarea>
+                            <div class="editor-footer">
+                                <span id="lineCount">Lines: 0</span>
+                                <span id="charCount">Characters: 0</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button id="analyzeBtn" class="btn btn-primary btn-large">
+                                <i class="fas fa-search"></i> Analyze Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Results -->
+                <div class="panel results-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-chart-line"></i> Analysis Results</h2>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Status Cards -->
+                        <div id="statusCards" class="status-cards">
+                            <div class="status-card">
+                                <div class="status-icon">
+                                    <i class="fas fa-circle-notch"></i>
+                                </div>
+                                <div class="status-info">
+                                    <div class="status-label">Status</div>
+                                    <div class="status-value" id="statusValue">N/A</div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="status-info">
+                                    <div class="status-label">Confidence</div>
+                                    <div class="status-value" id="confidenceValue">N/A</div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="status-info">
+                                    <div class="status-label">Priority</div>
+                                    <div class="status-value" id="priorityValue">N/A</div>
+                                </div>
+                            </div>
+                            <div class="status-card">
+                                <div class="status-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="status-info">
+                                    <div class="status-label">Time</div>
+                                    <div class="status-value" id="timeValue">N/A</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div id="loadingState" class="loading-state" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>Analyzing code...</p>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="emptyState" class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h3>No Analysis Yet</h3>
+                            <p>Enter or paste Python code in the editor and click "Analyze Code" to get started.</p>
+                        </div>
+
+                        <!-- Results Container -->
+                        <div id="resultsContainer" class="results-container" style="display: none;">
+                            <!-- Results will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 VulneraPred | AI-Powered Security Analysis | CS Course Project</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
